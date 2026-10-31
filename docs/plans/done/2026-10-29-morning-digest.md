@@ -1,8 +1,9 @@
 ---
 plan: morning-digest
-status: ready
+status: done
 owner: rook
 opened: 2026-10-29
+closed: 2026-10-31
 ---
 
 # Morning digest
@@ -77,3 +78,15 @@ page again with `LANE_MARKER` unset (the banner reads "no marker set") and uploa
 link. Move this plan to `docs/plans/done/` with its issue list.
 
 Done when: the preview link no longer shows the lane marker.
+
+## Issues
+
+| # | Issue | Blocked by | Worker | Closed |
+|---|-------|-----------|--------|--------|
+| 1 | Run log reader | — | Antigravity · gemini-3.8-flash · medium | 2026-10-31 |
+| 2 | Digest page: GET /digest/:night | #1 | Antigravity · gemini-3.8-flash · medium | 2026-10-31 |
+| 3 | Digest JSON: GET /api/digest/:night | #1 | Antigravity · gemini-3.8-flash · medium | 2026-10-31 |
+| 4 | Board link: status board links to digest | #1, #2 | Antigravity · gemini-3.8-flash · medium | 2026-10-31 |
+| 5 | Route tests: digest and JSON endpoints | #2, #3 | Antigravity · gemini-3.8-flash · medium | 2026-10-31 |
+| 6 | Preview for review: export and publish HTML | #2, #3, #4, #5 | Antigravity · gemini-3.8-flash · medium | 2026-10-31 |
+| 7 | Clean up: remove lane marker and archive plan | #6 | Antigravity · gemini-3.8-flash · medium | 2026-10-31 |
