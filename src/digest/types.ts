@@ -19,9 +19,16 @@ export type DigestRow = {
   lastTime: string;
 };
 
+export type DigestCounts = {
+  ok: number;
+  retry: number;
+  fail: number;
+};
+
 export type DigestNight = {
   night: string;
   rows: DigestRow[];
+  counts: DigestCounts;
   badLines: number;
 };
 

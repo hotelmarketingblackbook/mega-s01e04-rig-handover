@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import type { DigestNight, DigestRow, RawLogLine } from './types.js';
+import type { DigestCounts, DigestNight, DigestRow, RawLogLine } from './types.js';
 
 export function readNight(runsDir: string, night: string): DigestNight | null {
   const filePath = join(runsDir, `${night}.jsonl`);
@@ -12,6 +12,7 @@ export function readNight(runsDir: string, night: string): DigestNight | null {
   const lines = content.split('\n');
 
   let badLines = 0;
+  const counts: DigestCounts = { ok: 0, retry: 0, fail: 0 };
   const jobMap = new Map<string, RawLogLine[]>();
 
   for (const rawLine of lines) {
@@ -25,6 +26,14 @@ export function readNight(runsDir: string, night: string): DigestNight | null {
       if (!parsed || typeof parsed.job !== 'string' || typeof parsed.at !== 'string' || typeof parsed.status !== 'string') {
         badLines++;
         continue;
+      }
+
+      if (parsed.status === 'ok') {
+        counts.ok++;
+      } else if (parsed.status === 'retry') {
+        counts.retry++;
+      } else if (parsed.status === 'fail') {
+        counts.fail++;
       }
 
       const existing = jobMap.get(parsed.job) ?? [];
@@ -74,6 +83,7 @@ export function readNight(runsDir: string, night: string): DigestNight | null {
   return {
     night,
     rows,
+    counts,
     badLines,
   };
 }
